@@ -1,0 +1,32 @@
+R_DEF: Internal format may change without notice
+local
+color black
+color white
+drawable ic_launcher_background
+drawable ic_launcher_foreground
+drawable img_weight
+drawable img_weight1
+id btn_exit
+id btn_hello
+id button
+id edt_age
+id edt_feet
+id edt_inch
+id edt_weight
+id home
+id imageView
+id rbtn_female
+id rbtn_male
+id textView
+id textView4
+id textView5
+id txt_edit
+layout activity_home
+layout activity_main
+mipmap ic_launcher
+mipmap ic_launcher_round
+string app_name
+style Base.Theme.Test
+style Theme.Test
+xml backup_rules
+xml data_extraction_rules
