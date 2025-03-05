@@ -9,13 +9,17 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class EmpAdapter extends RecyclerView.Adapter<EmpAdapter.EmpViewHolder> {
-    private List<Employee> employees;
+    private List<Employee> empList;
+    private List<Employee> originalList;
 
-    public EmpAdapter(List<Employee> employees) {
-        this.employees = employees;
+    public EmpAdapter(List<Employee> empList) {
+        this.empList = new ArrayList<>(empList);
+        this.originalList = new ArrayList<>(empList);
     }
 
     @NonNull
@@ -23,12 +27,32 @@ public class EmpAdapter extends RecyclerView.Adapter<EmpAdapter.EmpViewHolder> {
     public EmpViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_object, parent, false);
         return new EmpViewHolder(view);
+    }
 
+
+
+    @Override
+    public int getItemCount() {
+        return empList.size();
+    }
+
+    public void filter(String query) {
+        empList.clear();
+        if (query.isEmpty()) {
+            empList.addAll(originalList);
+        } else {
+            for (Employee emp : originalList) {
+                if (emp.getName().toLowerCase().contains(query.toLowerCase())) {
+                    empList.add(emp);
+                }
+            }
+        }
+        notifyDataSetChanged();
     }
 
     @Override
     public void onBindViewHolder(@NonNull EmpViewHolder holder, int position) {
-        Employee employee = employees.get(position);
+        Employee employee = empList.get(position);
         holder.tvName.setText(employee.getName());
         holder.tvPhone.setText(employee.getPhone());
         holder.itemView.setOnClickListener(v -> {
@@ -44,9 +68,10 @@ public class EmpAdapter extends RecyclerView.Adapter<EmpAdapter.EmpViewHolder> {
         });
     }
 
-    @Override
-    public int getItemCount() {
-        return employees.size();
+    // Phương thức sắp xếp theo tên
+    public void sortByName() {
+        Collections.sort(empList, (e1, e2) -> e1.getName().compareTo(e2.getName()));
+        notifyDataSetChanged();
     }
 
     static class EmpViewHolder extends RecyclerView.ViewHolder{

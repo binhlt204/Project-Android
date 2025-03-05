@@ -9,12 +9,27 @@ public class sample {
             List<Unit> Units = new ArrayList<>();
             Units.add(new Unit("Khoa CNTT", "0123456789", "Tầng 5, Nhà C1"));
             Units.add(new Unit("Khoa Kinh tế", "0987654321", "Tầng 3, Nhà C2"));
+            Units.add(new Unit("Khoa Ngữ Anh", "0123456789", "Tầng 5, Nhà C1"));
+            Units.add(new Unit("Khoa Luật", "0123456789", "Tầng 5, Nhà C1"));
+            Units.add(new Unit("Khoa Kiểm toán", "0123456789", "Tầng 5, Nhà C1"));
+            Units.add(new Unit("Khoa Ngữ Anh", "0123456789", "Tầng 5, Nhà C1"));
+            Units.add(new Unit("Khoa Luật", "0123456789", "Tầng 5, Nhà C1"));
+            Units.add(new Unit("Khoa Kiểm toán", "0123456789", "Tầng 5, Nhà C1"));
+
             return Units;
         }
 
         public static List<Employee> getSampleEmployees() {
             List<Employee> employees = new ArrayList<>();
             employees.add(new Employee("Nguyễn Văn A", "Giảng viên", "0912345678", "nva@tlu.edu.vn", "Khoa CNTT"));
+            employees.add(new Employee("Lê Văn C", "Giảng viên", "0912345678", "nva@tlu.edu.vn", "Khoa CNTT"));
+            employees.add(new Employee("Trần A", "Giảng viên", "0912345678", "nva@tlu.edu.vn", "Khoa CNTT"));
+            employees.add(new Employee("Trần Thị B", "Trưởng khoa", "0987654321", "ttb@tlu.edu.vn", "Khoa Kinh tế"));
+            employees.add(new Employee("Lê Văn C", "Giảng viên", "0912345678", "nva@tlu.edu.vn", "Khoa CNTT"));
+            employees.add(new Employee("Trần A", "Giảng viên", "0912345678", "nva@tlu.edu.vn", "Khoa CNTT"));
+            employees.add(new Employee("Trần Thị B", "Trưởng khoa", "0987654321", "ttb@tlu.edu.vn", "Khoa Kinh tế"));
+            employees.add(new Employee("Lê Văn C", "Giảng viên", "0912345678", "nva@tlu.edu.vn", "Khoa CNTT"));
+            employees.add(new Employee("Trần A", "Giảng viên", "0912345678", "nva@tlu.edu.vn", "Khoa CNTT"));
             employees.add(new Employee("Trần Thị B", "Trưởng khoa", "0987654321", "ttb@tlu.edu.vn", "Khoa Kinh tế"));
             return employees;
         }

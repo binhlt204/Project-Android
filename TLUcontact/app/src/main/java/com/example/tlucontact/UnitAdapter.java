@@ -9,13 +9,16 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class UnitAdapter extends RecyclerView.Adapter<UnitAdapter.UnitViewHolder> {
     private List<Unit> unitList;
-
+    private List<Unit> originalList;
     public UnitAdapter(List<Unit> unitList) {
-        this.unitList = unitList;
+        this.unitList = new ArrayList<>(unitList);
+        this.originalList = new ArrayList<>(unitList);
     }
 
     @NonNull
@@ -45,7 +48,25 @@ public class UnitAdapter extends RecyclerView.Adapter<UnitAdapter.UnitViewHolder
     public int getItemCount() {
         return unitList.size();
     }
-
+    //Tìm kiếm theo tên
+    public void filter(String query) {
+        unitList.clear();
+        if (query.isEmpty()) {
+            unitList.addAll(originalList);
+        } else {
+            for (Unit unit : originalList) {
+                if (unit.getName().toLowerCase().contains(query.toLowerCase())) {
+                    unitList.add(unit);
+                }
+            }
+        }
+        notifyDataSetChanged();
+    }
+    // Phương thức sắp xếp theo tên
+    public void sortByName() {
+        Collections.sort(unitList, (u1, u2) -> u1.getName().compareTo(u2.getName()));
+        notifyDataSetChanged();
+    }
     static class UnitViewHolder extends RecyclerView.ViewHolder {
         TextView tvName, tvPhone;
 
