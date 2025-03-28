@@ -1,0 +1,13 @@
+# Đơn vị
+Khoa CNTT,0123456789,Tầng 5, Nhà C1
+Khoa Kinh tế,0987654321,Tầng 3, Nhà C2
+Khoa Ngữ Anh,0123456789,Tầng 5, Nhà C1
+Khoa Luật,0123456789,Tầng 5, Nhà C1
+Khoa Kiểm toán,0123456789,Tầng 5, Nhà C1
+
+# Cán bộ giảng viên
+Nguyễn VănT hẩm,Giảng viên,0912345678,nva@tlu.edu.vn,Khoa CNTT
+Trương Xuân Nam,Giảng viên,0912345678,lvc@tlu.edu.vn,Khoa CNTT
+Kiều Tuấn Dũng,Giảng viên,0912345678,tra@tlu.edu.vn,Khoa CNTT
+Lê Văn Phương,Trưởng khoa,0987654321,ttb@tlu.edu.vn,Khoa Kinh tế
+Trần Thị Tú Anh,Giảng viên,0923456789,pvd@tlu.edu.vn,Khoa Luật
