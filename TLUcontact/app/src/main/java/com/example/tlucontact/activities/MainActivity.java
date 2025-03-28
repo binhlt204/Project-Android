@@ -100,25 +100,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-//    private void insertSampleData() {
-//        if (unitDAO.getAllUnits().isEmpty()) {
-//
-//            unitDAO.addUnit("Khoa CNTT", "0123456789", "Tầng 5, Nhà C1");
-//            unitDAO.addUnit("Khoa Kinh tế", "0987654321", "Tầng 3, Nhà C2");
-//            unitDAO.addUnit("Khoa Ngữ Anh", "0123456789", "Tầng 5, Nhà C1");
-//            unitDAO.addUnit("Khoa Luật", "0123456789", "Tầng 5, Nhà C1");
-//            unitDAO.addUnit("Khoa Kiểm toán", "0123456789", "Tầng 5, Nhà C1");
-//        }
-//
-//        if (employeeDAO.getAllEmployees().isEmpty()) {
-//
-//            employeeDAO.addEmployee("Nguyễn Văn A", "Khoa CNTT", "Giảng viên", "0912345678", "nva@tlu.edu.vn");
-//            employeeDAO.addEmployee("Lê Văn C", "Khoa CNTT", "Giảng viên", "0912345678", "lvc@tlu.edu.vn");
-//            employeeDAO.addEmployee("Trần A", "Khoa CNTT", "Giảng viên", "0912345678", "tra@tlu.edu.vn");
-//            employeeDAO.addEmployee("Trần Thị B", "Khoa Kinh tế", "Trưởng khoa", "0987654321", "ttb@tlu.edu.vn");
-//            employeeDAO.addEmployee("Phạm Văn D", "Khoa Luật", "Giảng viên", "0923456789", "pvd@tlu.edu.vn");
-//        }
-//    }
+
 
     private void openDetail(Object contact) {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
