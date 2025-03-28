@@ -1,0 +1,38 @@
+<resources>
+
+    <color name="white">#FFFFFF</color>  <!-- Màu trắng -->
+    <color name="gray">#E0E0E0</color>  <!-- Màu xám cho nút chưa chọn -->
+    <color name="black">#000000</color>  <!-- Màu chữ đen -->
+
+
+        <color name="light_blue">#BBDEFB</color>  <!-- Màu xanh dương nhạt -->
+        <color name="button_default">#E0E0E0</color>  <!-- Màu xám mặc định -->
+
+
+        <color name="primaryColor">#000000</color>
+        <color name="secondaryColor">#4CAF50</color>
+        <color name="buttonTextColor">#FFFFFF</color>
+        <color name="textColorPrimary">#212121</color>
+        <color name="textColorSecondary">#757575</color>
+        <color name="backgroundColor">#F5F5F5</color>
+        <color name="rippleColor">#B3E5FC</color>
+
+    <color name="purple_200">#FFBB86FC</color>
+    <color name="purple_500">#FF6200EE</color>
+    <color name="purple_700">#FF3700B3</color>
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_700">#FF018786</color>
+    <color name="primary_black">#FF000000</color>
+
+    <color name="primary_blue">#FF006CD9</color>
+    <color name="second_blue">#489EFF</color>
+    <color name="third_blue">#CCAAD4FF</color>
+    <color name="second_black">#FF555555</color>
+    <color name="gray_light">#FFA6A6A6</color>
+    <color name="error">#FFEC221F</color>
+    <color name="success">#FF00D45B</color>
+    <color name="success_border">#FF25FF6A</color>
+    <color name="blue">#2196F3</color>
+    <color name="dark_blue">#0D47A1</color>
+
+</resources>

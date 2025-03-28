@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="8dp"
+    android:background="@color/white">
+
+    <!-- Tiêu đề có logo -->
+    <LinearLayout
+        android:id="@+id/titleLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:paddingVertical="8dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <ImageView
+            android:id="@+id/img_logo"
+            android:layout_width="46dp"
+            android:layout_height="32dp"
+            android:src="@drawable/logotlu"
+            android:contentDescription="Logo"
+            android:layout_marginEnd="8dp"/>
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Danh bạ Đại học Thủy Lợi"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:textColor="#212121"/>
+    </LinearLayout>
+
+    <!-- Thanh tìm kiếm và nút sắp xếp -->
+    <LinearLayout
+        android:id="@+id/navBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:padding="6dp"
+        app:layout_constraintTop_toBottomOf="@id/titleLayout"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <!-- SearchView -->
+        <androidx.appcompat.widget.SearchView
+            android:id="@+id/searchView"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:background="@drawable/bg_search"
+            android:text="Tìm theo tên"
+
+            android:iconifiedByDefault="false"/>
+
+        <!-- Bộ lọc & Sort -->
+        <LinearLayout
+            android:id="@+id/filterLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_marginStart="8dp"
+            android:paddingHorizontal="4dp">
+
+            <Button
+                android:id="@+id/btn_sort"
+                android:layout_width="40dp"
+                android:layout_height="wrap_content"
+
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:drawableLeft="@drawable/ic_sort"
+                android:textColor="#424242" />
+
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <!-- RecyclerView hiển thị danh sách liên lạc -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_view"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:padding="4dp"
+        app:layout_constraintTop_toBottomOf="@id/navBar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/bottom_view"/>
+
+    <LinearLayout
+        android:id="@+id/bottom_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="@color/white"
+        android:padding="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <Button
+            android:id="@+id/btn_units"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Đơn vị"
+            android:background="@color/white"
+            android:layout_marginEnd="8dp"
+            android:drawableTop="@drawable/ic_unit"
+            android:padding="0dp"
+            android:gravity="center"
+            android:textColor="@drawable/selector_text_color"
+            android:focusable="true"
+            android:clickable="true"
+            android:stateListAnimator="@null"
+            />
+
+        <Button
+            android:id="@+id/btn_employees"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="CBGV"
+            android:background="@color/white"
+            android:layout_marginLeft="8dp"
+            android:drawableTop="@drawable/ic_person"
+            android:padding="0dp"
+            android:gravity="center"
+            android:textColor="@drawable/selector_text_color"/>
+    </LinearLayout>
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

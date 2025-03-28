@@ -1,0 +1,45 @@
+<resources>
+
+    <string name="app_name">TLU Contact</string>
+    <string name="login_title">Đăng nhập</string>
+    <string name="register_title">Đăng ký</string>
+    <string name="terms_and_policies_title">Điều khoản và chính sách</string>
+    <string name="unit_title">Đơn vị</string>
+    <string name="staff_title">CBGV</string>
+    <string name="student_title">Sinh viên</string>
+    <string name="my_title">Tôi</string>
+    <string name="search_hint">Tìm theo tên, mã số,…</string>
+    <string name="code_title">Mã số</string>
+    <string name="phone_number_title">Số điện thoại</string>
+    <string name="email_title">Email</string>
+    <string name="person_title">Họ và tên</string>
+    <string name="id_person">Mã cán bộ / Mã sinh viên</string>
+    <string name="next_password">Tiếp theo</string>
+    <string name="address_title">Địa chỉ</string>
+    <string name="hometown_title">Quê quán</string>
+    <string name="class_title">Lớp/Đơn vị</string>
+    <string name="unit_contact_title">Danh bạ đơn vị</string>
+    <string name="staff_contact_title">Danh bạ CBGV</string>
+    <string name="student_contact_title">Danh bạ sinh viên</string>
+    <string name="menu_title">Menu</string>
+    <string name="text_chat_action">Nhắn tin</string>
+    <string name="call_action">Gọi thoại</string>
+    <string name="send_email_action">Gửi email</string>
+    <string name="contact_name_mockup">GODFRED ASAMOAH</string>
+    <string name="second_contact_info_mockup">Kumasi, Ghana</string>
+    <string name="tv_label_mockup">Di động</string>
+    <string name="tv_value_mockup">+2332471729</string>
+    <string name="content_desc_mockup">Copy</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="password">Mật khẩu</string>
+    <string name="forgot_password">Quên mật khẩu</string>
+    <string name="remember_password">Ghi nhớ mật khẩu</string>
+    <string name="new_password_title">Mật khẩu mới</string>
+    <string name="confirm_new_password">Nhập lại mật khẩu mới</string>
+    <string name="change_password_title">Thay đổi mật khẩu</string>
+    <string name="terms_and_policy">Bằng cách đăng nhập, bạn đồng ý với <font color='#FF006CD9'>Điều khoản và Chính sách </font> của chúng tôi.</string>
+    <string name="terms_text">Bằng cách đăng ký, bạn đồng ý với <b>Điều khoản và chính sách</b> của chúng tôi</string>
+    <string name="password_title">Mật khẩu</string>
+    <string name="confirm_new_password1">Nhập lại mật khẩu</string>
+    <string name="edit_title">Chỉnh sửa</string>
+</resources>
