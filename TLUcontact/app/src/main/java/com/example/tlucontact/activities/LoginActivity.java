@@ -57,12 +57,9 @@ public class LoginActivity extends AppCompatActivity {
         mAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, task -> {
                     if (task.isSuccessful()) {
-                        if (mAuth.getCurrentUser().isEmailVerified()){
-                            FirebaseUser user = mAuth.getCurrentUser();
-                            checkUserRole(user);
-                        }else {
-                            Toast.makeText(this, "Vui lòng xác nhận email của bạn", Toast.LENGTH_LONG);
-                        }
+                        Toast.makeText(this, "Đăng nhập thành công!", Toast.LENGTH_SHORT).show();
+                        FirebaseUser user = mAuth.getCurrentUser();
+                        checkUserRole(user);
 
                     } else {
                         Toast.makeText(this, "Đăng nhập thất bại: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();

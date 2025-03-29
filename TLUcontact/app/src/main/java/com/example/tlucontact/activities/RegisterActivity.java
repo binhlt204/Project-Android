@@ -74,23 +74,16 @@ public class RegisterActivity extends AppCompatActivity {
         }
 
 
-        Toast.makeText(RegisterActivity.this,"Đăng ký tài khoản thành công!", Toast.LENGTH_SHORT);
+
         // Đăng ký tài khoản với Firebase Auth
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, task -> {
                     if (task.isSuccessful()) {
-                        //Xử lý gửi xác nhận
-                        mAuth.getCurrentUser().sendEmailVerification().addOnCompleteListener(new OnCompleteListener<Void>() {
-                            @Override
-                            public void onComplete(@NonNull Task<Void> task) {
-                                if (task.isSuccessful()){
-                                    Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
-                                    startActivity(intent);
-                                }
-                            }
-                        });
+                        Toast.makeText(RegisterActivity.this,"Đăng ký tài khoản thành công!", Toast.LENGTH_SHORT).show();
                         FirebaseUser user = mAuth.getCurrentUser();
                         saveUserToDatabase(user, fullName, email);
+                        Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
+                        startActivity(intent);
                     } else {
                         Toast.makeText(this, "Đăng ký thất bại: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                     }
