@@ -94,7 +94,7 @@
         android:id="@+id/id_password_conform"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:hint="Mật khẩu"
+        android:hint="Nhập lại mật khẩu"
         android:drawableStart="@drawable/ic_lock"
         android:drawableEnd="@drawable/ic_visibility"
         android:padding="12dp"

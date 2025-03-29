@@ -8,10 +8,13 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.tlucontact.R;
 import com.example.tlucontact.models.User;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
@@ -69,11 +72,23 @@ public class RegisterActivity extends AppCompatActivity {
             Toast.makeText(this, "Mật khẩu không khớp!", Toast.LENGTH_SHORT).show();
             return;
         }
+
+
         Toast.makeText(RegisterActivity.this,"Đăng ký tài khoản thành công!", Toast.LENGTH_SHORT);
         // Đăng ký tài khoản với Firebase Auth
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, task -> {
                     if (task.isSuccessful()) {
+                        //Xử lý gửi xác nhận
+                        mAuth.getCurrentUser().sendEmailVerification().addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                if (task.isSuccessful()){
+                                    Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
+                                    startActivity(intent);
+                                }
+                            }
+                        });
                         FirebaseUser user = mAuth.getCurrentUser();
                         saveUserToDatabase(user, fullName, email);
                     } else {

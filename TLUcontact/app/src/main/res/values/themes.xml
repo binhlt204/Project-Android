@@ -2,7 +2,7 @@
     <!-- Base application theme -->
     <style name="Base.Theme.TLUContact" parent="Theme.MaterialComponents.Light.NoActionBar">
         <!-- Màu chính của ứng dụng -->
-        <item name="colorPrimary">@color/gray</item>
+        <item name="colorPrimary">@color/light_blue</item>
         <item name="colorPrimaryVariant">@color/dark_blue</item>
         <item name="colorAccent">@color/light_blue</item>
 
