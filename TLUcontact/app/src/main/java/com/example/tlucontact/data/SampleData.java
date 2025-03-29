@@ -24,12 +24,13 @@ public class SampleData {
         }
 
         if (employeeDAO.getAllEmployees().isEmpty()) {
-            employeeDAO.addEmployee("Nguyễn Văn Thẩm", "Giảng viên", "0912345678", "nva@tlu.edu.vn", "Khoa CNTT");
-            employeeDAO.addEmployee("Trương Xuân Nam", "Giảng viên", "0912345678", "lvc@tlu.edu.vn", "Khoa CNTT");
-            employeeDAO.addEmployee("Kiều Tuấn Dũng", "Giảng viên", "0912345678", "tra@tlu.edu.vn", "Khoa CNTT");
-            employeeDAO.addEmployee("Lê Văn Phương", "Trưởng khoa", "0987654321", "ttb@tlu.edu.vn", "Khoa Kinh tế");
-            employeeDAO.addEmployee("Trần Thị Tú Anh", "Giảng viên", "0923456789", "pvd@tlu.edu.vn", "Khoa Luật");
+            employeeDAO.addEmployee("Nguyễn Văn Thẩm", "Khoa CNTT", "Giảng viên", "0912345678", "nvt@tlu.edu.vn");
+            employeeDAO.addEmployee("Trương Xuân Nam", "Khoa CNTT", "Giảng viên", "0912345678", "txn@tlu.edu.vn");
+            employeeDAO.addEmployee("Kiều Tuấn Dũng", "Khoa CNTT", "Giảng viên", "0912345678", "ktd@tlu.edu.vn");
+            employeeDAO.addEmployee("Lê Văn Phương", "Khoa Kinh tế", "Trưởng khoa", "0987654321", "lvp@tlu.edu.vn");
+            employeeDAO.addEmployee("Trần Thị Tú Anh", "Khoa Luật", "Giảng viên", "0923456789", "tta@tlu.edu.vn");
         }
+
 
 
     }

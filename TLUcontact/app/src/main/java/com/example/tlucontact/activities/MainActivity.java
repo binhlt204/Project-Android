@@ -31,7 +31,8 @@ public class MainActivity extends AppCompatActivity {
     private List<Unit> unitList;
     private List<Employee> employeeList;
     private boolean isSorted = false;
-//    private boolean showingUnits = true;
+
+    private boolean isShowingUnits = true;
 
     private UnitDAO unitDAO;
     private EmployeeDAO employeeDAO;
@@ -69,7 +70,8 @@ public class MainActivity extends AppCompatActivity {
 
                 btnUnits.setSelected(true);
                 btnEmployees.setSelected(false);
-                loadUnits();
+            isShowingUnits = true;
+            loadUnits();
 
         });
 
@@ -77,7 +79,8 @@ public class MainActivity extends AppCompatActivity {
 
                 btnEmployees.setSelected(true);
                 btnUnits.setSelected(false);
-                loadEmployees();
+            isShowingUnits = false;
+            loadEmployees();
 
         });
 
@@ -123,8 +126,9 @@ public class MainActivity extends AppCompatActivity {
             Employee employee = (Employee) contact;
             intent.putExtra("type", "employee");
             intent.putExtra("name", employee.getName());
-            intent.putExtra("phone", employee.getPhone());
             intent.putExtra("position", employee.getPosition());
+            intent.putExtra("phone", employee.getPhone());
+
             intent.putExtra("email", employee.getEmail());
             intent.putExtra("unit", employee.getUnit());
         }
@@ -156,19 +160,34 @@ public class MainActivity extends AppCompatActivity {
     // Lọc danh sách liên lạc theo tên
     private void filterContacts(String query) {
         List<Object> filteredList = new ArrayList<>();
-        List<?> currentList = contactList.containsAll(unitList) ? unitList : employeeList;
 
-        for (Object contact : currentList) {
-            String name = contact instanceof Unit ? ((Unit) contact).getName() : ((Employee) contact).getName();
-            if (name.toLowerCase().contains(query.toLowerCase())) {
-                filteredList.add(contact);
+        if (isShowingUnits) {
+            for (Unit unit : unitList) {
+                if (unit.getName().toLowerCase().contains(query.toLowerCase())) {
+                    filteredList.add(unit);
+                }
+            }
+        } else {
+            for (Employee employee : employeeList) {
+                if (employee.getName().toLowerCase().contains(query.toLowerCase())) {
+                    filteredList.add(employee);
+                }
             }
         }
 
-        contactList.clear();
-        contactList.addAll(filteredList);
-        contactAdapter.notifyDataSetChanged();
+        if (query.isEmpty()) {
+            if (isShowingUnits) {
+                loadUnits();
+            } else {
+                loadEmployees();
+            }
+        } else {
+            contactList.clear();
+            contactList.addAll(filteredList);
+            contactAdapter.notifyDataSetChanged();
+        }
     }
+
 
 
 

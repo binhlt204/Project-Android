@@ -32,6 +32,7 @@ public class ContactDetailActivity extends AppCompatActivity {
         String type = getIntent().getStringExtra("type");
         String phone = getIntent().getStringExtra("phone");
         String email = getIntent().getStringExtra("email");
+
         tvName.setText(getIntent().getStringExtra("name"));
         tvPhone.setText(phone);
 
