@@ -16,7 +16,7 @@ public class EmployeeDAO {
         dbHelper = new DatabaseHelper(context);
     }
 
-    /** Thêm một nhân viên mới vào cơ sở dữ liệu */
+    /** 📌 Thêm nhân viên */
     public long addEmployee(String name, String unit, String position, String phone, String email) {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         ContentValues values = new ContentValues();
@@ -26,13 +26,12 @@ public class EmployeeDAO {
         values.put("phone", phone);
         values.put("email", email);
 
-
         long result = db.insert("employees", null, values);
         db.close();
         return result;
     }
 
-    /** Lấy danh sách tất cả nhân viên */
+    /** 📌 Lấy danh sách tất cả nhân viên */
     public List<Employee> getAllEmployees() {
         List<Employee> employees = new ArrayList<>();
         SQLiteDatabase db = dbHelper.getReadableDatabase();
@@ -44,12 +43,34 @@ public class EmployeeDAO {
                     cursor.getString(2), // unit
                     cursor.getString(3), // position
                     cursor.getString(4), // phone
-                    cursor.getString(5)  //email
+                    cursor.getString(5)  // email
             ));
         }
+        cursor.close();
+        db.close();
         return employees;
     }
 
+    /** 📌 Sửa nhân viên theo tên */
+    public int updateEmployeeByName(String oldName, String newName, String unit, String position, String phone, String email) {
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("name", newName);
+        values.put("unit", unit);
+        values.put("position", position);
+        values.put("phone", phone);
+        values.put("email", email);
 
+        int rowsAffected = db.update("employees", values, "name = ?", new String[]{oldName});
+        db.close();
+        return rowsAffected;
+    }
 
+    /** 📌 Xóa nhân viên theo tên */
+    public int deleteEmployeeByName(String name) {
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        int rowsDeleted = db.delete("employees", "name = ?", new String[]{name});
+        db.close();
+        return rowsDeleted;
+    }
 }

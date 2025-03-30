@@ -33,7 +33,7 @@
             android:id="@+id/tv_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Danh bạ Đại học Thủy Lợi"
+            android:text="DANH BẠ ĐẠI HỌC THỦY LỢI"
             android:textSize="16sp"
             android:textStyle="bold"
             android:textColor="#212121"/>
@@ -129,7 +129,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="CBGV"
+            android:text="Giảng viên"
             android:background="@color/white"
             android:layout_marginLeft="8dp"
             android:drawableTop="@drawable/ic_person"
