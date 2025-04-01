@@ -1,5 +1,6 @@
 package com.example.tlucontact.activities;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -20,6 +21,7 @@ public class LoginActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private EditText edtEmail, edtPassword;
     private Button btnLogin;
+    private ProgressDialog progressDialog; // Thêm ProgressDialog
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,16 +34,18 @@ public class LoginActivity extends AppCompatActivity {
         edtPassword = findViewById(R.id.password);
         btnLogin = findViewById(R.id.btn_login);
 
+        // Khởi tạo ProgressDialog
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage("Đang đăng nhập...");
+        progressDialog.setCancelable(false);
+
         btnLogin.setOnClickListener(view -> loginUser());
+
         // Bắt sự kiện khi nhấn "Đăng ký"
         TextView tvRegister = findViewById(R.id.tv_register);
-        tvRegister.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Chuyển sang màn hình đăng ký
-                Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
-                startActivity(intent);
-            }
+        tvRegister.setOnClickListener(v -> {
+            Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
+            startActivity(intent);
         });
     }
 
@@ -54,14 +58,24 @@ public class LoginActivity extends AppCompatActivity {
             return;
         }
 
+        // Hiển thị ProgressDialog khi đăng nhập
+        progressDialog.show();
+
         mAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, task -> {
                     if (task.isSuccessful()) {
-                        Toast.makeText(this, "Đăng nhập thành công!", Toast.LENGTH_SHORT).show();
                         FirebaseUser user = mAuth.getCurrentUser();
-                        checkUserRole(user);
-
+                        if (user != null) {
+                            if (user.isEmailVerified()) {
+                                checkUserRole(user);
+                            } else {
+                                progressDialog.dismiss();
+                                Toast.makeText(this, "Email chưa xác thực. Vui lòng kiểm tra hộp thư của bạn.", Toast.LENGTH_LONG).show();
+                                mAuth.signOut(); // Đăng xuất nếu chưa xác thực email
+                            }
+                        }
                     } else {
+                        progressDialog.dismiss();
                         Toast.makeText(this, "Đăng nhập thất bại: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });
@@ -71,17 +85,14 @@ public class LoginActivity extends AppCompatActivity {
         if (user == null) return;
 
         String email = user.getEmail();
-        String role = "Guest";
+        String role = "Khách";
 
         if (email.endsWith("e.tlu.edu.vn")) {
             role = "Sinh viên";
-            startActivity(new Intent(LoginActivity.this, MainActivity.class));
         } else if (email.endsWith("tlu.edu.vn")) {
             role = "Giảng viên";
-            startActivity(new Intent(LoginActivity.this, MainActivity.class));
-        } else {
-            Toast.makeText(this,"Bạn là khách!", Toast.LENGTH_LONG);
-            startActivity(new Intent(LoginActivity.this, MainActivity.class));
+        } else if(email.equals("ltb02102004@gmail.com")){
+            role = "Admin";
         }
 
         // Lưu role vào SharedPreferences
@@ -90,6 +101,12 @@ public class LoginActivity extends AppCompatActivity {
         editor.putString("user_role", role);
         editor.apply();
 
+        progressDialog.dismiss();
+        Toast.makeText(this, "Đăng nhập thành công!", Toast.LENGTH_SHORT).show();
+
+        // Chuyển sang màn hình chính
+        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+        startActivity(intent);
         finish();
     }
 }

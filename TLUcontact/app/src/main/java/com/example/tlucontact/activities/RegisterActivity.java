@@ -1,5 +1,6 @@
 package com.example.tlucontact.activities;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -23,37 +24,39 @@ import com.google.firebase.database.FirebaseDatabase;
 public class RegisterActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private DatabaseReference mDatabase;
-
     private EditText edtFullName, edtEmail, edtPassword, edtConfirmPassword;
     private Button btnRegister;
+    private ProgressDialog progressDialog; // Thêm ProgressDialog
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.frame_register);
 
-        // Khởi tạo FirebaseAuth
+        // Khởi tạo FirebaseAuth và Database
         mAuth = FirebaseAuth.getInstance();
         mDatabase = FirebaseDatabase.getInstance().getReference("Users");
 
-        // Ánh xạ
+        // Ánh xạ View
         edtFullName = findViewById(R.id.full_name);
         edtEmail = findViewById(R.id.Email_register);
         edtPassword = findViewById(R.id.id_password);
         edtConfirmPassword = findViewById(R.id.id_password_conform);
         btnRegister = findViewById(R.id.btn_register);
 
+        // Khởi tạo ProgressDialog
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage("Đang đăng ký...");
+        progressDialog.setCancelable(false);
+
         // Xử lý đăng ký
         btnRegister.setOnClickListener(view -> registerUser());
+
         // Bắt sự kiện khi nhấn "Đăng nhập"
         TextView tvLogin = findViewById(R.id.tv_login);
-        tvLogin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Chuyển sang màn hình đăng nhập
-                Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
-                startActivity(intent);
-            }
+        tvLogin.setOnClickListener(v -> {
+            Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
+            startActivity(intent);
         });
     }
 
@@ -73,36 +76,63 @@ public class RegisterActivity extends AppCompatActivity {
             return;
         }
 
-
+        // Hiển thị ProgressDialog
+        progressDialog.show();
 
         // Đăng ký tài khoản với Firebase Auth
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, task -> {
                     if (task.isSuccessful()) {
-                        Toast.makeText(RegisterActivity.this,"Đăng ký tài khoản thành công!", Toast.LENGTH_SHORT).show();
                         FirebaseUser user = mAuth.getCurrentUser();
-                        saveUserToDatabase(user, fullName, email);
-                        Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
-                        startActivity(intent);
+                        if (user != null) {
+                            sendEmailVerification(user, fullName, email);
+                        }
                     } else {
+                        progressDialog.dismiss();
                         Toast.makeText(this, "Đăng ký thất bại: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });
     }
 
-    private void saveUserToDatabase(FirebaseUser user, String fullName, String email) {
-        if (user == null) return;
+    private void sendEmailVerification(FirebaseUser user, String fullName, String email) {
+        user.sendEmailVerification()
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        Toast.makeText(RegisterActivity.this, "Email xác nhận đã được gửi!", Toast.LENGTH_LONG).show();
+                        progressDialog.dismiss();
+                        saveUserToDatabase(user, fullName, email);
+                    } else {
+                        progressDialog.dismiss();
+                        Toast.makeText(RegisterActivity.this, "Lỗi gửi email xác nhận: " + task.getException().getMessage(), Toast.LENGTH_LONG).show();
+                    }
+                });
+    }
 
+    private void saveUserToDatabase(FirebaseUser user, String fullName, String email) {
         String userId = user.getUid();
-        String role = email.endsWith("e.tlu.edu.vn") ? "Sinh viên" : email.endsWith("tlu.edu.vn") ? "Giảng viên" : "Khách";
+        String role;
+        if (email.equals("ltb02102004@gmail.com")) {
+            role = "Admin";
+        } else if (email.endsWith("e.tlu.edu.vn")) {
+            role = "Sinh viên";
+        } else if (email.endsWith("tlu.edu.vn")) {
+            role = "Giảng viên";
+        } else {
+            role = "Khách";
+        }
 
         User newUser = new User(userId, fullName, email, role);
         mDatabase.child(userId).setValue(newUser)
                 .addOnSuccessListener(aVoid -> {
-                    Toast.makeText(this, "Đăng ký thành công!", Toast.LENGTH_SHORT).show();
+                    progressDialog.dismiss();
+                    Toast.makeText(this, "Đăng ký thành công! Vui lòng xác nhận email trước khi đăng nhập.", Toast.LENGTH_SHORT).show();
+                    FirebaseAuth.getInstance().signOut(); // Đăng xuất để chặn người dùng chưa xác thực đăng nhập
                     startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
                     finish();
                 })
-                .addOnFailureListener(e -> Toast.makeText(this, "Lỗi lưu dữ liệu: " + e.getMessage(), Toast.LENGTH_SHORT).show());
+                .addOnFailureListener(e -> {
+                    progressDialog.dismiss();
+                    Toast.makeText(this, "Lỗi lưu dữ liệu: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                });
     }
 }

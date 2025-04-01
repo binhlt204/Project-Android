@@ -1,18 +1,31 @@
 package com.example.tlucontact.models;
 
 public class Employee {
+    private String id; // Mã nhân viên
     private String name;
     private String position;
     private String phone;
     private String email;
     private String unit;
 
-    public Employee(String name, String position, String phone, String email, String unit) {
+    public Employee() {
+    }
+
+    public Employee(String id, String name, String unit, String position, String phone, String email) {
+        this.id = id;
         this.name = name;
         this.position = position;
         this.phone = phone;
         this.email = email;
         this.unit = unit;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getName() {

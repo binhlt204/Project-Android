@@ -1,176 +1,273 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="#FFFFFF">
 
-    <!-- Header -->
-    <!-- Header -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:padding="8dp"
-        android:background="#F5F5F5"
-        android:gravity="center_vertical">
+        android:orientation="vertical">
 
-        <!-- Nút Back -->
-        <ImageButton
-            android:id="@+id/btn_back"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:src="@drawable/ic_back"
-            android:contentDescription="Back"/>
-
-        <!-- Tiêu đề động -->
-        <TextView
-            android:id="@+id/tv_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:text="Chi tiết"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:textColor="#000"/>
-    </LinearLayout>
-
-
-    <!-- Ảnh đại diện -->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:gravity="center"
-        android:paddingTop="16dp">
-
-        <ImageView
-            android:id="@+id/img_avatar"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:scaleType="centerCrop"
-            android:src="@drawable/ic_contact"
-            android:background="@color/gray"/>
-    </LinearLayout>
-
-    <!-- Thông tin  -->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="8dp">
-
-        <TextView
-            android:id="@+id/tv_detail_name"
+        <!-- Header -->
+        <!-- Header -->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/header"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="20sp"
+            android:background="#F5F5F5"
+            android:padding="8dp">
+
+            <!-- Nút Back -->
+            <ImageButton
+                android:id="@+id/btn_back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="Back"
+                android:src="@drawable/ic_back"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent" />
+
+            <!-- Tiêu đề động -->
+            <TextView
+                android:id="@+id/tv_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:textColor="#000"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toEndOf="@id/btn_back"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent" />
+
+            <!-- Nút chỉnh sửa (chỉ hiển thị cho admin) -->
+            <ImageButton
+                android:id="@+id/btn_edit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_edit"
+
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <!-- Ảnh đại diện -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:gravity="center"
-            android:textColor="#212121"
-            android:paddingVertical="8dp"/>
-    </LinearLayout>
+            android:orientation="vertical"
+            android:paddingTop="16dp">
 
-    <!-- Nút hành động -->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:padding="0dp"
-        android:gravity="center">
+            <ImageView
+                android:id="@+id/img_avatar"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:background="@drawable/rounded_background"
+                android:scaleType="centerCrop"
+                android:src="@drawable/anhavt" />
+        </LinearLayout>
 
-        <Button
-            android:id="@+id/btn_message"
-            android:layout_width="wrap_content"
+        <!-- Thông tin -->
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Nhắn tin"
-            android:drawableTop="@android:drawable/ic_menu_send"
-            android:padding="0dp"
+            android:orientation="vertical"
+            android:padding="8dp">
+
+            <TextView
+                android:id="@+id/tv_detail_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:paddingVertical="8dp"
+                android:textColor="#212121"
+                android:textSize="20sp" />
+        </LinearLayout>
+
+        <!-- Nút hành động -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:gravity="center"
-            android:backgroundTint="@color/dark_blue"
-            android:textColor="@color/white"
-            />
+            android:orientation="horizontal"
+            android:padding="0dp">
 
-        <Button
-            android:id="@+id/btn_call"
-            android:layout_width="wrap_content"
+            <Button
+                android:id="@+id/btn_message"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/dark_blue"
+                android:drawableTop="@android:drawable/ic_menu_send"
+                android:gravity="center"
+                android:padding="0dp"
+                android:text="Nhắn tin"
+                android:textColor="@color/white" />
+
+            <Button
+                android:id="@+id/btn_call"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="15dp"
+                android:backgroundTint="@color/dark_blue"
+                android:drawableTop="@android:drawable/ic_menu_call"
+                android:gravity="center"
+                android:padding="0dp"
+                android:text="Gọi"
+                android:textColor="@color/white" />
+
+            <Button
+                android:id="@+id/btn_email"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/dark_blue"
+                android:drawableTop="@android:drawable/ic_dialog_email"
+                android:gravity="center"
+                android:padding="0dp"
+                android:text="Gửi thư"
+                android:textColor="#FFFFFF" />
+        </LinearLayout>
+
+        <!-- Phone Section -->
+        <LinearLayout
+            android:id="@+id/layout_phone"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Gọi"
-            android:drawableTop="@android:drawable/ic_menu_call"
-            android:padding="0dp"
-            android:layout_margin="15dp"
-            android:gravity="center"
-            android:backgroundTint="@color/dark_blue"
-            android:textColor="@color/white"
-            />
+            android:layout_margin="12dp"
+            android:background="@drawable/border_background"
+            android:orientation="vertical"
+            android:padding="8dp">
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Điện thoại"
+                android:textColor="#757575" />
 
-        <Button
-            android:id="@+id/btn_email"
-            android:layout_width="wrap_content"
+            <TextView
+                android:id="@+id/tv_detail_phone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#212121" />
+        </LinearLayout>
+
+        <!-- Position Section -->
+        <LinearLayout
+            android:id="@+id/layout_position"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Gửi thư"
+            android:layout_margin="12dp"
+            android:background="@drawable/border_background"
+            android:orientation="vertical"
+            android:padding="8dp">
 
-            android:drawableTop="@android:drawable/ic_dialog_email"
-            android:padding="0dp"
-            android:gravity="center"
-            android:backgroundTint="@color/dark_blue"
-            android:textColor="#FFFFFF"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Chức vụ"
+                android:textColor="#757575" />
 
+            <TextView
+                android:id="@+id/tv_detail_position"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#212121" />
+        </LinearLayout>
 
+        <!-- Email Section -->
+        <LinearLayout
+            android:id="@+id/layout_email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="12dp"
+            android:background="@drawable/border_background"
+            android:orientation="vertical"
+            android:padding="8dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Email"
+                android:textColor="#757575" />
+
+            <TextView
+                android:id="@+id/tv_detail_email"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#212121" />
+        </LinearLayout>
+
+        <!-- Address Section -->
+        <LinearLayout
+            android:id="@+id/layout_address"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="12dp"
+            android:background="@drawable/border_background"
+            android:orientation="vertical"
+            android:padding="8dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Địa chỉ"
+                android:textColor="#757575" />
+
+            <TextView
+                android:id="@+id/tv_detail_address"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#212121" />
+        </LinearLayout>
+
+        <!-- Unit Section (will be renamed to "Đơn vị con" for units) -->
+        <LinearLayout
+            android:id="@+id/layout_unit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="12dp"
+            android:background="@drawable/border_background"
+            android:orientation="vertical"
+            android:padding="8dp">
+
+            <TextView
+                android:id="@+id/tv_unit_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Đơn vị"
+                android:textColor="#757575" />
+
+            <TextView
+                android:id="@+id/tv_detail_unit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#212121" />
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/layout_staff"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="12dp"
+            android:background="@drawable/border_background"
+            android:orientation="vertical"
+            android:padding="8dp">
+
+            <TextView
+                android:id="@+id/tv_label_staff"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Nhân viên"
+                android:textColor="#757575" />
+
+            <TextView
+                android:id="@+id/tv_staff"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#212121" />
+        </LinearLayout>
     </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="8dp"
-        android:layout_margin="12dp"
-        android:background="@drawable/border_background">
-
-        <TextView
-
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="16sp"
-            android:text="Điện thoại"
-            android:textColor="#212121"
-            android:paddingVertical="8dp"/>
-
-        <TextView
-            android:id="@+id/tv_detail_phone"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="16sp"
-            android:textColor="#212121"
-            android:paddingVertical="8dp"/>
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="16dp"
-        android:layout_margin="12dp"
-        android:background="@drawable/border_background">
-        <TextView
-
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="16sp"
-            android:text="Chi tiết"
-            android:textColor="#212121"
-            android:paddingVertical="8dp"/>
-
-        <!-- Chi tiet -->
-        <TextView
-            android:id="@+id/tv_detail_extra"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="16sp"
-            android:textColor="#212121"
-            android:paddingVertical="8dp"/>
-    </LinearLayout>
-
-
-</LinearLayout>
+</ScrollView>

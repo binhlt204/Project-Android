@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/nav_departments_contact"
+        android:icon="@drawable/ic_unit_contact"
+        android:title="@string/unit_title" />
+
+    <item
+        android:id="@+id/nav_staffs_contact"
+        android:icon="@drawable/ic_staff_contact"
+        android:title="@string/staff_title" />
+
+
+
+</menu>

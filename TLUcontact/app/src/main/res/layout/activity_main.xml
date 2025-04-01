@@ -6,7 +6,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="8dp"
+    android:padding="0dp"
     android:background="@color/white">
 
     <!-- Tiêu đề có logo -->
@@ -67,6 +67,7 @@
             android:id="@+id/filterLayout"
             android:layout_width="wrap_content"
             android:layout_height="40dp"
+
             android:orientation="horizontal"
             android:gravity="center"
             android:layout_marginStart="8dp"
@@ -74,11 +75,10 @@
 
             <Button
                 android:id="@+id/btn_sort"
-                android:layout_width="40dp"
+                android:layout_width="60dp"
                 android:layout_height="wrap_content"
-
                 android:background="?attr/selectableItemBackgroundBorderless"
-                android:drawableLeft="@drawable/ic_sort"
+                android:drawableLeft="@drawable/ic_sort_az"
                 android:textColor="#424242" />
 
 
@@ -94,50 +94,24 @@
         app:layout_constraintTop_toBottomOf="@id/navBar"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/bottom_view"/>
+        app:layout_constraintBottom_toTopOf="@id/bottom_nav"/>
 
-    <LinearLayout
-        android:id="@+id/bottom_view"
-        android:layout_width="match_parent"
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottom_nav"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:background="@color/white"
-        android:padding="0dp"
+        android:layout_marginBottom="0dp"
+        android:background="?android:attr/windowBackground"
+        app:itemBackground="@drawable/nav_item_background"
+        app:itemIconTint="@color/nav_item_color"
+        app:itemTextColor="@color/nav_item_color"
+        app:labelVisibilityMode="labeled"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
-
-        <Button
-            android:id="@+id/btn_units"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Đơn vị"
-            android:background="@color/white"
-            android:layout_marginEnd="8dp"
-            android:drawableTop="@drawable/ic_unit"
-            android:padding="0dp"
-            android:gravity="center"
-            android:textColor="@drawable/selector_text_color"
-            android:focusable="true"
-            android:clickable="true"
-            android:stateListAnimator="@null"
-            />
-
-        <Button
-            android:id="@+id/btn_employees"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Giảng viên"
-            android:background="@color/white"
-            android:layout_marginLeft="8dp"
-            android:drawableTop="@drawable/ic_person"
-            android:padding="0dp"
-            android:gravity="center"
-            android:textColor="@drawable/selector_text_color"/>
-    </LinearLayout>
-
+        app:menu="@menu/bottom_nav" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
