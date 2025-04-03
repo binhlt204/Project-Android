@@ -84,9 +84,11 @@ public class RegisterActivity extends AppCompatActivity {
                 .addOnCompleteListener(this, task -> {
                     if (task.isSuccessful()) {
                         FirebaseUser user = mAuth.getCurrentUser();
-                        if (user != null) {
-                            sendEmailVerification(user, fullName, email);
-                        }
+//                        if (user != null) {
+//                            sendEmailVerification(user, fullName, email);
+//                        }
+                        progressDialog.dismiss();
+                        saveUserToDatabase(user, fullName, email);
                     } else {
                         progressDialog.dismiss();
                         Toast.makeText(this, "Đăng ký thất bại: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
@@ -94,38 +96,34 @@ public class RegisterActivity extends AppCompatActivity {
                 });
     }
 
-    private void sendEmailVerification(FirebaseUser user, String fullName, String email) {
-        user.sendEmailVerification()
-                .addOnCompleteListener(task -> {
-                    if (task.isSuccessful()) {
-                        Toast.makeText(RegisterActivity.this, "Email xác nhận đã được gửi!", Toast.LENGTH_LONG).show();
-                        progressDialog.dismiss();
-                        saveUserToDatabase(user, fullName, email);
-                    } else {
-                        progressDialog.dismiss();
-                        Toast.makeText(RegisterActivity.this, "Lỗi gửi email xác nhận: " + task.getException().getMessage(), Toast.LENGTH_LONG).show();
-                    }
-                });
-    }
+//    private void sendEmailVerification(FirebaseUser user, String fullName, String email) {
+//        user.sendEmailVerification()
+//                .addOnCompleteListener(task -> {
+//                    if (task.isSuccessful()) {
+//                        Toast.makeText(RegisterActivity.this, "Email xác nhận đã được gửi!", Toast.LENGTH_LONG).show();
+//                        progressDialog.dismiss();
+//                        saveUserToDatabase(user, fullName, email);
+//                    } else {
+//                        progressDialog.dismiss();
+//                        Toast.makeText(RegisterActivity.this, "Lỗi gửi email xác nhận: " + task.getException().getMessage(), Toast.LENGTH_LONG).show();
+//                    }
+//                });
+//    }
 
     private void saveUserToDatabase(FirebaseUser user, String fullName, String email) {
         String userId = user.getUid();
-        String role;
+        String role="";
         if (email.equals("ltb02102004@gmail.com")) {
             role = "Admin";
-        } else if (email.endsWith("e.tlu.edu.vn")) {
-            role = "Sinh viên";
         } else if (email.endsWith("tlu.edu.vn")) {
             role = "Giảng viên";
-        } else {
-            role = "Khách";
         }
 
         User newUser = new User(userId, fullName, email, role);
         mDatabase.child(userId).setValue(newUser)
                 .addOnSuccessListener(aVoid -> {
                     progressDialog.dismiss();
-                    Toast.makeText(this, "Đăng ký thành công! Vui lòng xác nhận email trước khi đăng nhập.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "Đăng ký thành công!", Toast.LENGTH_SHORT).show();
                     FirebaseAuth.getInstance().signOut(); // Đăng xuất để chặn người dùng chưa xác thực đăng nhập
                     startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
                     finish();

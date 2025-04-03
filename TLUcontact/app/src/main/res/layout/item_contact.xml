@@ -7,7 +7,7 @@
     android:layout_margin="8dp"
     app:cardCornerRadius="12dp"
     app:cardElevation="4dp"
-    app:cardBackgroundColor="#1976D2">  <!-- Màu cam pastel nhạt -->
+    app:cardBackgroundColor="#1976D2">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -15,7 +15,7 @@
         android:orientation="horizontal"
         android:padding="8dp"
         android:gravity="center_vertical"
-        android:background="@drawable/bg_item">  <!-- Gradient background -->
+        android:background="@drawable/bg_item">
 
         <ImageView
             android:id="@+id/iv_avatar"
@@ -48,6 +48,37 @@
                 android:layout_height="wrap_content"
                 android:textSize="14sp"
                 android:textColor="#757575"/>
+        </LinearLayout>
+
+        <!-- Thêm 2 nút Sửa và Xóa -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <Button
+                android:id="@+id/btn_edit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Sửa"
+                android:textSize="12sp"
+                android:padding="8dp"
+                android:background="@color/blue"
+                android:layout_marginEnd="8dp"
+                android:visibility="gone"
+                />
+
+            <Button
+                android:id="@+id/btn_delete"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Xóa"
+                android:textSize="12sp"
+                android:padding="8dp"
+                android:background="#F44336"
+                android:visibility="gone" /> <!-- Ẩn mặc định -->
+              <!-- Màu đỏ -->
         </LinearLayout>
 
     </LinearLayout>

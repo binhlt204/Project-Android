@@ -1,32 +1,30 @@
 package com.example.tlucontact.models;
-
-import com.google.firebase.firestore.PropertyName;
-
 import java.util.ArrayList;
 import java.util.List;
 
 public class Unit {
-    private String unitId; // Mã đơn vị
+    private String unitId;
     private String name;
     private String phone;
     private String address;
-    private List<String> subUnits; // Danh sách đơn vị con
-    private List<String> employeeIds; // Danh sách ID của cán bộ giảng viên
+    private List<String> subUnits;
+    private List<String> employeeNames; // Thay employeeIds thành employeeNames
+
+    // Constructor
 
     public Unit() {
-        this.subUnits = new ArrayList<>();
-        this.employeeIds = new ArrayList<>();
     }
 
-    public Unit(String unitId, String name, String phone, String address, List<String> subUnits, List<String> employeeIds) {
+    public Unit(String unitId, String name, String phone, String address, List<String> subUnits, List<String> employeeNames) {
         this.unitId = unitId;
         this.name = name;
         this.phone = phone;
         this.address = address;
         this.subUnits = subUnits != null ? subUnits : new ArrayList<>();
-        this.employeeIds = employeeIds != null ? employeeIds : new ArrayList<>();
+        this.employeeNames = employeeNames != null ? employeeNames : new ArrayList<>();
     }
 
+    // Getters và Setters
     public String getUnitId() {
         return unitId;
     }
@@ -35,12 +33,10 @@ public class Unit {
         this.unitId = unitId;
     }
 
-    //    @PropertyName("unitName") // Maps "unitName" in Firestore to "name" in Java
     public String getName() {
         return name;
     }
 
-    //    @PropertyName("unitName")
     public void setName(String name) {
         this.name = name;
     }
@@ -66,14 +62,14 @@ public class Unit {
     }
 
     public void setSubUnits(List<String> subUnits) {
-        this.subUnits = subUnits != null ? subUnits : new ArrayList<>();
+        this.subUnits = subUnits;
     }
 
-    public List<String> getEmployeeIds() {
-        return employeeIds;
+    public List<String> getEmployeeNames() {
+        return employeeNames;
     }
 
-    public void setEmployeeIds(List<String> employeeIds) {
-        this.employeeIds = employeeIds != null ? employeeIds : new ArrayList<>();
+    public void setEmployeeNames(List<String> employeeNames) {
+        this.employeeNames = employeeNames;
     }
 }

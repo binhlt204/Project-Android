@@ -9,7 +9,10 @@
         android:id="@+id/nav_staffs_contact"
         android:icon="@drawable/ic_staff_contact"
         android:title="@string/staff_title" />
-
+    <item
+        android:id="@+id/nav_profile_edit"
+        android:icon="@drawable/ic_person"
+        android:title="Tôi" />
 
 
 </menu>

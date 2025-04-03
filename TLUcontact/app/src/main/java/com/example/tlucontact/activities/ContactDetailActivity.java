@@ -1,6 +1,6 @@
-
-
 package com.example.tlucontact.activities;
+
+import static org.jetbrains.annotations.Nls.Capitalization.Title;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -18,16 +18,13 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.tlucontact.R;
-import com.example.tlucontact.models.Employee;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class ContactDetailActivity extends AppCompatActivity {
 
@@ -43,7 +40,7 @@ public class ContactDetailActivity extends AppCompatActivity {
 
     private String type, id, unitId, name, phone, position, email, address, unit;
     private List<String> subUnits;
-    private List<String> employeeIds;
+    private List<String> employeeNames;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,18 +88,18 @@ public class ContactDetailActivity extends AppCompatActivity {
         address = getIntent().getStringExtra("address");
         unit = getIntent().getStringExtra("unit");
         subUnits = getIntent().getStringArrayListExtra("subUnits");
-        employeeIds = getIntent().getStringArrayListExtra("employeeIds");
+        employeeNames = getIntent().getStringArrayListExtra("employeeNames");
 
         // Hiển thị thông tin
         displayContactDetails();
 
         // Nếu là admin, cho phép chỉnh sửa khi nhấn vào tên
         if (isAdmin) {
-            btnEdit.setVisibility(View.VISIBLE);
-            btnEdit.setOnClickListener(v -> showEditDialog());
-        }else {
             btnEdit.setVisibility(View.GONE);
-    }
+            btnEdit.setOnClickListener(v -> showEditDialog());
+        } else {
+            btnEdit.setVisibility(View.GONE);
+        }
 
         // Xử lý nút Call
         btnCall.setOnClickListener(v -> {
@@ -173,11 +170,13 @@ public class ContactDetailActivity extends AppCompatActivity {
             tvDetailUnit.setText(subUnits != null && !subUnits.isEmpty() ? String.join("\n", subUnits) : "Không có");
 
             layoutStaff.setVisibility(View.VISIBLE);
-            loadEmployees(employeeIds);
+            tvStaff.setText(employeeNames != null && !employeeNames.isEmpty() ? String.join("\n", employeeNames) : "Không có");
 
             layoutPosition.setVisibility(View.GONE);
             layoutEmail.setVisibility(View.GONE);
         } else {
+
+
             tvTitle.setText("Giảng Viên");
             imgAvatar.setImageResource(R.drawable.anhavt);
 
@@ -244,17 +243,16 @@ public class ContactDetailActivity extends AppCompatActivity {
             editSubUnits.setText(subUnits != null ? String.join(", ", subUnits) : "");
             layout.addView(editSubUnits);
 
-            // Thêm trường để chỉnh sửa danh sách employeeIds
-            final EditText editEmployeeIds = new EditText(this);
-            editEmployeeIds.setHint("Danh sách ID nhân viên (cách nhau bởi dấu phẩy)");
-            editEmployeeIds.setText(employeeIds != null ? String.join(", ", employeeIds) : "");
-            layout.addView(editEmployeeIds);
+            final EditText editEmployeeNames = new EditText(this);
+            editEmployeeNames.setHint("Danh sách tên nhân viên (cách nhau bởi dấu phẩy)");
+            editEmployeeNames.setText(employeeNames != null ? String.join(", ", employeeNames) : "");
+            layout.addView(editEmployeeNames);
         }
 
         builder.setView(layout);
 
         builder.setPositiveButton("Lưu", (dialog, which) -> {
-            // Cập nhật giá trị mới
+            // Cập nhật giá trị mới nhưng không thay đổi id
             name = editName.getText().toString().trim();
             phone = editPhone.getText().toString().trim();
 
@@ -267,8 +265,8 @@ public class ContactDetailActivity extends AppCompatActivity {
                 String subUnitsInput = ((EditText) layout.getChildAt(3)).getText().toString().trim();
                 subUnits = subUnitsInput.isEmpty() ? new ArrayList<>() : Arrays.asList(subUnitsInput.split("\\s*,\\s*"));
 
-                String employeeIdsInput = ((EditText) layout.getChildAt(4)).getText().toString().trim();
-                employeeIds = employeeIdsInput.isEmpty() ? new ArrayList<>() : Arrays.asList(employeeIdsInput.split("\\s*,\\s*"));
+                String employeeNamesInput = ((EditText) layout.getChildAt(4)).getText().toString().trim();
+                employeeNames = employeeNamesInput.isEmpty() ? new ArrayList<>() : Arrays.asList(employeeNamesInput.split("\\s*,\\s*"));
             }
 
             // Cập nhật lên Firestore
@@ -291,7 +289,7 @@ public class ContactDetailActivity extends AppCompatActivity {
                             "phone", phone,
                             "address", address,
                             "subUnits", subUnits,
-                            "employeeIds", employeeIds
+                            "employeeNames", employeeNames
                     )
                     .addOnSuccessListener(aVoid -> Toast.makeText(this, "Cập nhật thành công", Toast.LENGTH_SHORT).show())
                     .addOnFailureListener(e -> Toast.makeText(this, "Cập nhật thất bại: " + e.getMessage(), Toast.LENGTH_SHORT).show());
@@ -308,37 +306,5 @@ public class ContactDetailActivity extends AppCompatActivity {
                     .addOnSuccessListener(aVoid -> Toast.makeText(this, "Cập nhật thành công", Toast.LENGTH_SHORT).show())
                     .addOnFailureListener(e -> Toast.makeText(this, "Cập nhật thất bại: " + e.getMessage(), Toast.LENGTH_SHORT).show());
         }
-    }
-
-    private void loadEmployees(List<String> employeeIds) {
-        if (employeeIds == null || employeeIds.isEmpty()) {
-            tvStaff.setText("Không có");
-            return;
-        }
-
-        db.collection("employees")
-                .whereIn("id", employeeIds)
-                .get()
-                .addOnSuccessListener(queryDocumentSnapshots -> {
-                    List<Employee> employees = new ArrayList<>();
-                    for (QueryDocumentSnapshot doc : queryDocumentSnapshots) {
-                        Employee employee = doc.toObject(Employee.class);
-                        employee.setId(doc.getId());
-                        employees.add(employee);
-                    }
-
-                    if (!employees.isEmpty()) {
-                        List<String> employeeNames = employees.stream()
-                                .map(Employee::getName)
-                                .collect(Collectors.toList());
-                        tvStaff.setText(String.join("\n", employeeNames));
-                    } else {
-                        tvStaff.setText("Không có");
-                    }
-                })
-                .addOnFailureListener(e -> {
-                    Toast.makeText(this, "Lỗi khi tải danh sách nhân viên: " + e.getMessage(), Toast.LENGTH_SHORT).show();
-                    tvStaff.setText("Không có");
-                });
     }
 }

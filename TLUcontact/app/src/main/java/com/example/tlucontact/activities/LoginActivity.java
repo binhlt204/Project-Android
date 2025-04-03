@@ -66,13 +66,12 @@ public class LoginActivity extends AppCompatActivity {
                     if (task.isSuccessful()) {
                         FirebaseUser user = mAuth.getCurrentUser();
                         if (user != null) {
-                            if (user.isEmailVerified()) {
+
                                 checkUserRole(user);
-                            } else {
                                 progressDialog.dismiss();
-                                Toast.makeText(this, "Email chưa xác thực. Vui lòng kiểm tra hộp thư của bạn.", Toast.LENGTH_LONG).show();
-                                mAuth.signOut(); // Đăng xuất nếu chưa xác thực email
-                            }
+                                Toast.makeText(this, "Đăng nhập thành công!", Toast.LENGTH_LONG).show();
+
+
                         }
                     } else {
                         progressDialog.dismiss();
@@ -85,11 +84,9 @@ public class LoginActivity extends AppCompatActivity {
         if (user == null) return;
 
         String email = user.getEmail();
-        String role = "Khách";
+        String role = "";
 
-        if (email.endsWith("e.tlu.edu.vn")) {
-            role = "Sinh viên";
-        } else if (email.endsWith("tlu.edu.vn")) {
+        if (email.endsWith("tlu.edu.vn")) {
             role = "Giảng viên";
         } else if(email.equals("ltb02102004@gmail.com")){
             role = "Admin";
@@ -99,6 +96,7 @@ public class LoginActivity extends AppCompatActivity {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
         SharedPreferences.Editor editor = prefs.edit();
         editor.putString("user_role", role);
+        editor.putString("user_email", email);
         editor.apply();
 
         progressDialog.dismiss();
